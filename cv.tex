@@ -1,642 +1,202 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%% Simple LaTeX CV Template %%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% NOTE: If you find that it says                                     %%
-%%                                                                    %%
-%%                           1 of ??                                  %%
-%%                                                                    %%
-%% at the bottom of your first page, this means that the AUX file     %%
-%% was not available when you ran LaTeX on this source. Simply RERUN  %%
-%% LaTeX to get the ``??'' replaced with the number of the last page  %%
-%% of the document. The AUX file will be generated on the first run   %%
-%% of LaTeX and used on the second run to fill in all of the          %%
-%% references.                                                        %%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%% Document Setup %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-% Don't like 10pt? Try 11pt or 12pt
-\documentclass[11pt]{article}
-
-% The automated optical recognition software used to digitize resume
-% information works best with fonts that do not have serifs. This
-% command uses a sans serif font throughout. Uncomment both lines (or at
-% least the second) to restore a Roman font (i.e., a font with serifs).
-\usepackage{fontspec}
-%\renewcommand{\familydefault}{\sfdefault}
-\setmainfont{Arial}
-
-% This is a helpful package that puts math inside length specifications
-\usepackage{calc}
-\usepackage{comment}
-
-% Simpler bibsection for CV sections
-% (thanks to natbib for inspiration)
-\makeatletter
-\newlength{\bibhang}
-\setlength{\bibhang}{1em} %1em}
-\newlength{\bibsep}
- {\@listi \global\bibsep\itemsep \global\advance\bibsep by\parsep}
-\newenvironment{bibsection}%
-        {\begin{enumerate}{}{%
-%        {\begin{list}{}{%
-       \setlength{\leftmargin}{\bibhang}%
-       \setlength{\itemindent}{-\leftmargin}%
-       \setlength{\itemsep}{\bibsep}%
-       \setlength{\parsep}{\z@}%
-        \setlength{\partopsep}{0pt}%
-        \setlength{\topsep}{0pt}}}
-        {\end{enumerate}\vspace{-.6\baselineskip}}
-%        {\end{list}\vspace{-.6\baselineskip}}
-\makeatother
-
-% Layout: Puts the section titles on left side of page
-\reversemarginpar
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Wagner CV
+% XeLaTeX Template
 %
-%         PAPER SIZE, PAGE NUMBER, AND DOCUMENT LAYOUT NOTES:
+% The original file was downloaded from:
+% http://www.LaTeXTemplates.com
 %
-% The next \usepackage line changes the layout for CV style section
-% headings as marginal notes. It also sets up the paper size as either
-% letter or A4. By default, letter was used. If A4 paper is desired,
-% comment out the letterpaper lines and uncomment the a4paper lines.
+% Original author:
+% Howard Wilson (https://github.com/watsonbox/cv_template_2004) with
+% extensive modifications by Vel (vel@latextemplates.com)
 %
-% As you can see, the margin widths and section title widths can be
-% easily adjusted.
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
 %
-% ALSO: Notice that the includefoot option can be commented OUT in order
-% to put the PAGE NUMBER *IN* the bottom margin. This will make the
-% effective text area larger.
-%
-% IF YOU WISH TO REMOVE THE ``of LASTPAGE'' next to each page number,
-% see the note about the +LP and -LP lines below. Comment out the +LP
-% and uncomment the -LP.
-%
-% IF YOU WISH TO REMOVE PAGE NUMBERS, be sure that the includefoot line
-% is uncommented and ALSO uncomment the \pagestyle{empty} a few lines
-% below.
-%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%% Use these lines for letter-sized paper
-\usepackage[paper=letterpaper,
-            %includefoot, % Uncomment to put page number above margin
-            marginparwidth=1.2in,     % Length of section titles
-            marginparsep=.05in,       % Space between titles and text
-            margin=1in,               % 1 inch margins
-            includemp]{geometry}
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
 
-%% Use these lines for A4-sized paper
-%\usepackage[paper=a4paper,
-%            %includefoot, % Uncomment to put page number above margin
-%            marginparwidth=30.5mm,    % Length of section titles
-%            marginparsep=1.5mm,       % Space between titles and text
-%            margin=25mm,              % 25mm margins
-%            includemp]{geometry}
+\documentclass[10pt]{article} % Default font size
 
-%% More layout: Get rid of indenting throughout entire document
-\setlength{\parindent}{0in}
+\input{structure.tex} % Include the file specifying document layout
 
-\usepackage[shortlabels]{enumitem}
-
-%% Reference the last page in the page number
-%
-% NOTE: comment the +LP line and uncomment the -LP line to have page
-%       numbers without the ``of ##'' last page reference)
-%
-% NOTE: uncomment the \pagestyle{empty} line to get rid of all page
-%       numbers (make sure includefoot is commented out above)
-%
-\usepackage{fancyhdr,lastpage}
-\pagestyle{fancy}
-%\pagestyle{empty}      % Uncomment this to get rid of page numbers
-\fancyhf{}\renewcommand{\headrulewidth}{0pt}
-\fancyfootoffset{\marginparsep+\marginparwidth}
-\newlength{\footpageshift}
-\setlength{\footpageshift}
-          {0.5\textwidth+0.5\marginparsep+0.5\marginparwidth-2in}
-\lfoot{\hspace{\footpageshift}%
-       \parbox{4in}{\, \hfill %
-                    \arabic{page} of \protect\pageref*{LastPage} % +LP
-%                    \arabic{page}                               % -LP
-                    \hfill \,}}
-
-% Finally, give us PDF bookmarks
-\usepackage{color,hyperref}
-\definecolor{darkblue}{rgb}{0.0,0.0,0.3}
-\definecolor{blue}{rgb}{0.0,0.0,0.6}
-\hypersetup{colorlinks,breaklinks,
-            linkcolor=blue,urlcolor=blue,
-            anchorcolor=blue,citecolor=blue}
-
-%%%%%%%%%%%%%%%%%%%%%%%% End Document Setup %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%% Helper Commands %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-% The title (name) with a horizontal rule under it
-% (optional argument typesets an object right-justified across from name
-%  as well)
-%
-% Usage: \makeheading{name}
-%        OR
-%        \makeheading[right_object]{name}
-%
-% Place at top of document. It should be the first thing.
-% If ``right_object'' is provided in the square-braced optional
-% argument, it will be right justified on the same line as ``name'' at
-% the top of the CV. For example:
-%
-%       \makeheading[\emph{Curriculum vitae}]{Your Name}
-%
-% will put an emphasized ``Curriculum vitae'' at the top of the document
-% as a title. Likewise, a picture could be included:
-%
-%   \makeheading[\includegraphics[height=1.5in]{my_picutre}]{Your Name}
-%
-% the picture will be flush right across from the name.
-\newcommand{\makeheading}[2][]%
-        {\hspace*{-\marginparsep minus \marginparwidth}%
-         \begin{minipage}[t]{\textwidth+\marginparwidth+\marginparsep}%
-             {\large \bfseries #2 \hfill #1}\\[-0.15\baselineskip]%
-                 \rule{\columnwidth}{1pt}%
-         \end{minipage}}
-
-% The section headings
-%
-% Usage: \section{section name}
-\renewcommand{\section}[1]{\pagebreak[3]%
-    \hyphenpenalty=10000%
-    \vspace{1.3\baselineskip}%
-    \phantomsection\addcontentsline{toc}{section}{#1}%
-    \noindent\llap{\scshape\smash{\parbox[t]{\marginparwidth}{\raggedright #1}}}%
-    \vspace{-\baselineskip}\par}
-
-% An itemize-style list with lots of space between items
-\newenvironment{outerlist}[1][\enskip\textbullet]%
-        {\begin{itemize}[#1,leftmargin=*]}{\end{itemize}%
-         \vspace{-.6\baselineskip}}
-
-% An environment IDENTICAL to outerlist that has better pre-list spacing
-% when used as the first thing in a \section
-\newenvironment{lonelist}[1][\enskip\textbullet]%
-        {\begin{list}{#1}{%
-        \setlength{\partopsep}{0pt}%
-        \setlength{\topsep}{0pt}}}
-        {\end{list}\vspace{-.6\baselineskip}}
-
-% An itemize-style list with little space between items
-\newenvironment{innerlist}[1][\enskip\textbullet]%
-        {\begin{itemize}[#1,leftmargin=*,parsep=0pt,itemsep=0pt,topsep=0pt,partopsep=0pt]}
-        {\end{itemize}}
-        
-% An itemize-style sublist, for sublists? work on this later maybe.
-
-% An environment IDENTICAL to innerlist that has better pre-list spacing
-% when used as the first thing in a \section
-\newenvironment{loneinnerlist}[1][\enskip\textbullet]%
-        {\begin{itemize}[#1,leftmargin=*,parsep=0pt,itemsep=0pt,topsep=0pt,partopsep=0pt]}
-        {\end{itemize}\vspace{-.6\baselineskip}}
-
-% To add some paragraph space between lines.
-% This also tells LaTeX to preferably break a page on one of these gaps
-% if there is a needed pagebreak nearby.
-\newcommand{\blankline}{\quad\pagebreak[3]}
-\newcommand{\halfblankline}{\quad\vspace{-0.5\baselineskip}\pagebreak[3]}
-
-% Uses hyperref to link DOI
-\newcommand\doilink[1]{\href{http://dx.doi.org/#1}{#1}}
-\newcommand\doi[1]{doi:\doilink{#1}}
-
-% For \url{SOME_URL}, links SOME_URL to the url SOME_URL
-\providecommand*\url[1]{\href{#1}{#1}}
-% Same as above, but pretty-prints SOME_URL in teletype fixed-width font
-\renewcommand*\url[1]{\href{#1}{\texttt{#1}}}
-
-% For \email{ADDRESS}, links ADDRESS to the url mailto:ADDRESS
-\providecommand*\email[1]{\href{mailto:#1}{#1}}
-% Same as above, but pretty-prints ADDRESS in teletype fixed-width font
-%\renewcommand*\email[1]{\href{mailto:#1}{\texttt{#1}}}
-
-%\providecommand\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
-%    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
-%\providecommand\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
-%    \TeX}}
-\providecommand\BibTeX{{B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
-    \TeX}}
-\providecommand\Matlab{\textsc{Matlab}}
-
-%%%%%%%%%%%%%%%%%%%%%%%% End Helper Commands %%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%%%%%%% Begin CV Document %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%----------------------------------------------------------------------------------------
 
 \begin{document}
-\makeheading{Alex H. Wagner, PhD}
 
-\section{Contact Information}
+%----------------------------------------------------------------------------------------
+%	NAME AND CONTACT INFORMATION
+%----------------------------------------------------------------------------------------
 
-% NOTE: Mind where the & separators and \\ breaks are in the following
-%       table.
-%
-% ALSO: \rcollength is the width of the right column of the table
-%       (adjust it to your liking; default is 1.85in).
-%
-%\newlength{\rcollength}\setlength{\rcollength}{1.85in}%
-%
-%\begin{tabular}[t]{@{}p{\textwidth-\rcollength}p{\rcollength}} % This is the author's crappy way of doing it.
-\begin{tabular*}{1\textwidth}{@{\extracolsep{\fill} } l r}
-%\href{http://www.cse.osu.edu/}%
-%     {Department of Computer Science and Engineering} & \\
-%\href{http://www.osu.edu/}{The Ohio State University}
-%8151 33rd Ave S Unit 409   & 507-304-1668 \\
-%Bloomington, MN  55425     & \email{quic0038@umn.edu}\\
-& 314-747-9284\\
-& awagner24@wustl.edu\\
+\title{Alex Handler Wagner, Ph.D. -- Curriculum Vitae} % Print the main header
 
-\end{tabular*}
+%------------------------------------------------
 
-\section{Research Interests}
+\parbox{0.5\textwidth}{ % First block
+\begin{tabbing} % Enables tabbing
+\hspace{3cm} \= \hspace{4cm} \= \kill % Spacing within the block
+{\bf Address} \> 575 Children's Crossroad,\\ % Address line 1
+\> Columbus, OH 43215 \\ % Address line 2
+{\bf Date of Birth} \> 16$^{th}$ June 1985 \\ % Date of birth 
+{\bf Nationality} \> American % Nationality
+\end{tabbing}}
+\hfill % Horizontal space between the two blocks
+\parbox{0.5\textwidth}{ % Second block
+\begin{tabbing} % Enables tabbing
+\hspace{3cm} \= \hspace{4cm} \= \kill % Spacing within the block
+{\bf Home Phone} \> +0 (000) 111 1111 \\ % Home phone
+{\bf Mobile Phone} \> +0 (000) 111 1112 \\ % Mobile phone
+{\bf Email} \> \href{mailto:Alex.Wagner@nationwidechildrens.org}{Alex.Wagner@nationwidechildrens.org} \\ % Email address
+\end{tabbing}}
 
-Bioinformatics, Cancer Genomics, Machine Learning
+%----------------------------------------------------------------------------------------
+%	PERSONAL PROFILE
+%----------------------------------------------------------------------------------------
 
-\section{Education}
+\section{Personal Profile}
 
-\href{http://www.uiowa.edu}{\textbf{University of Iowa}},
-Iowa City, IA
-\begin{innerlist}
+My ongoing work is to model genomic evidence and assertions for interpreting genomic variation, to help us in the federated
+generation and search of genomic knowledge.  This has involved active participation across many relevant professional societies,
+and I currently hold advisory or leadership roles in several organizations, including the Variant Interpretation for Cancer Consortium
+(VICC) (as Director), the Global Alliance for Genomics and Health (\href{https://ga4gh.org}{GA4GH}) (steering committee), the Atlas
+for Variant Effects Alliance (CVI and DCD committees), and ClinGen (Somatic Cancer, Cancer Variant Interpretation, and Data
+Platform work groups). I also co-led the development of the GA4GH \href{https://vrs.ga4gh.org}{Variation Representation Specification},
+and led the 2021 manuscript first describing that work. Ongoing support for this research is provided by a Genomic Innovator Award
+from the National Human Genome Research Institute.
 
-\item[] PhD,
-        \href{http://genetics.grad.uiowa.edu/about-our-program/computational-genetics}
-             {Computational Genetics},
-             December 2014
-        \begin{innerlist}
-        \item Thesis Topic: \emph{Computational Methods for Identification of Disease-Associated Variations in Exome Sequencing}
-        \item Advisors:
-              \href{http://www.engineering.uiowa.edu/bme/faculty-staff/terry-braun}
-                   {Terry A. Braun, PhD} and
-              \href{http://www.medicine.uiowa.edu/dept_primary_apr.aspx?appointment=Ophthalmology%20and%20Visual%20Sciences&id=stonee}
-                   {Edwin M. Stone, MD, PhD}
-        \item \href{http://pdb-d.eng.uiowa.edu/~wagnerah/transcript.pdf}
-		{GPA: 3.90}
-        \end{innerlist}
+Along the way, I have participated in the development several precision medicine web tools, particularly in the cancer domain. These include
+the \href{www.dgidb.org}{Drug-Gene Interaction Database}, the database of Clinical Interpretations of Variants in Cancer
+(\href{https://www.civicdb.org}{CIViC}) knowledgebase, and the \href{https://search.cancervariants.org}{VICC meta-knowledgebase}.
 
-\item[] Graduate Certificate,
-        \href{http://informatics.grad.uiowa.edu/bioinformatics}
-             {Bioinformatics},
-             May 2013
-        \begin{innerlist}
-        \item Advisor:
-              \href{http://www.engineering.uiowa.edu/bme/faculty-staff/terry-braun}
-                   {Terry A. Braun, PhD}
-        \item GPA: 3.96
-        \end{innerlist}
-\end{innerlist}
-
-\halfblankline
-
-\href{http://www.iastate.edu}{\textbf{Iowa State University}},
-Ames, IA
-\begin{innerlist}
-\item[] BS,
-        \href{http://discover.las.iastate.edu/academics/biology/}
-             {Biology}, May 2008
-        \begin{innerlist}
-        \item Minor in \href{http://www.math.iastate.edu/Undergrad/Programs.html}
-        	{Mathematics}
-        \item \emph{Cum Laude}
-        \item GPA: 3.51
-        \end{innerlist}
-\end{innerlist}
-
-\halfblankline
-
-\textbf{Extracurricular Education}
-\begin{innerlist}
-\item[] \href{http://hpc.uiowa.edu/files/hpc.uiowa.edu/files/ihpc12_ad.pdf}
-		{High Performance Computing}, Gregory Howes, Iowa, Summer 2012
-\item[] \href{http://pdb-d.eng.uiowa.edu/~wagnerah/ML.pdf}
-		{Machine Learning}, Andrew Ng, Stanford (Online), Fall 2011
-\item[] \href{http://pdb-d.eng.uiowa.edu/~wagnerah/DB.pdf}
-		{Intro to Databases}, Jennifer Widom, Stanford (Online), Fall 2011
-\end{innerlist}
+%----------------------------------------------------------------------------------------
+%	EMPLOYMENT HISTORY SECTION
+%----------------------------------------------------------------------------------------
 
 \section{Research Experience}
 
-\textbf{Postdoctoral Research Associate} \hfill {January 2015 to Present}
-\begin{innerlist}
+\job
+{Sep 2011 -}{Present}
+{Lehman Brothers, 1234 Mario Park, San Francisco, CA, United States}
+{http://www.lehmanbrothers.com}
+{Senior Developer / Technical Team Lead}
+{Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis elementum nec dolor sed sagittis. Cras justo lorem, volutpat mattis lacus vel, consequat aliquam quam. Interdum et malesuada fames ac ante ipsum primis in faucibus.\\
+\rule{0mm}{5mm}\textbf{Technologies:} Ruby on Rails 2.3, Amazon EC2, NoSQL data stores, memcached, collaborative matching, Facebook Graph API.}
 
-\item[] McDonnell Genome Institute,\\
-        Washington University School of Medicine\\
-        Saint Louis, MO\\
-        Advisor: \href{http://www.obigriffith.org/}
-                   {Obi L. Griffith, PhD}
-\end{innerlist}
+%------------------------------------------------
 
-\halfblankline
+\job
+{Oct 2009 -}{Sep 2010}
+{Initech Inc., Otis St, CA 94025, United States}
+{http://www.initech.com}
+{Analyst}
+{Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis elementum nec dolor:
 
-\textbf{Graduate Research Assistant} \hfill {August 2010 to December 2014}
-\begin{innerlist}
+\begin{itemize-noindent}
+\item{Developed spreadsheets for risk analysis on exotic derivatives on a wide array of commodities (ags, oils, precious and base metals.)}
+\item{Managed blotter and secondary trades on structured notes, liaised with Middle Office, Sales and Structuring for bookkeeping.}
+\end{itemize-noindent}
 
-\item[] Coordinated Laboratory for Computational Genomics,\\
-        University of Iowa College of Engineering\\
-        Iowa City, IA\\
-        Advisor: \href{http://www.engineering.uiowa.edu/bme/faculty-staff/terry-braun}
-                   {Terry A. Braun, PhD}
-\end{innerlist}
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis elementum nec dolor sed sagittis.}
 
-\halfblankline
+%----------------------------------------------------------------------------------------
+%	EDUCATION SECTION
+%----------------------------------------------------------------------------------------
 
-\textbf{Clinical Laboratory Technologist} \hfill {July 2008 to July 2010}
-\begin{innerlist}
+\section{Education}
 
-\item[] Department of Laboratory Medicine and Pathology,\\
-        Mayo Clinic, Rochester, MN\\
-        Supervisors: Dianna Bowden and \href{http://www.mayoclinic.org/biographies/moyer-thomas-p-ph-d/bio-20054280}
-		{Thomas P. Moyer, PhD}
-\end{innerlist}
+\tabbedblock{
+\bf{2004-2007} \> BSc Hons in Computer Science - \href{http://www.universityofcalifornia.edu}{The University of California, Berkeley} \\[5pt]
+\>First Class - 80\% Average\\
+\>\+
+\textit{Third Year Project - 89\% awarded `Project of the Year 2007'}
+}
 
-\halfblankline
+%------------------------------------------------
 
-\textbf{Biological Laboratory Aide} \hfill {Jan 2007 to Sep 2007}
-\begin{innerlist}
+\tabbedblock{
+\bf{2001-2003} \> Advanced Secondary Education - \href{http://www.berkeleycollege.edu}{Berkeley College, California}\\[5pt]
+\>\+
+\textit{Pure Mathematics} \> A \\
+\textit{Statistics (AS)} \> A \\
+\textit{Physics} \> A \\
+\textit{Economics} \> B
+}
 
-\item[] USDA Agricultural Research Service,\\
-        Iowa State University, Ames, IA\\
-        Supervisor: \href{http://www.agron.iastate.edu/personnel/userspage.aspx?id=285}
-		{David Grant, PhD}
-\end{innerlist}
+%----------------------------------------------------------------------------------------
+%	IT/COMPUTING SKILLS SECTION
+%----------------------------------------------------------------------------------------
 
-\section{Refereed Journal Publications}
-\vspace{-.1275in}
-\begin{bibsection}
-	\item SS Whitmore, {\bf AH Wagner}, AP DeLuca, AV Drack, EM Stone, BA Tucker, S Zeng, TA Braun, RF Mullins, TE Scheetz (2014) ``Transcriptomic analysis across nasal, temporal, and macular regions of human neural retina and RPE/choroid by RNA-Seq". \emph{Experimental Eye Research}. \\
-	doi:10.1016/j.exer.2014.11.001
-	\item TP Sharma, CM McDowell, Y Liu, {\bf AH Wagner}, D Thole, BP Faga, RJ Workinger, TA Braun, AF Clark (2014) ``Optic nerve crush induces spatial and temporal gene expression patterns in retina and optic nerve of BALB/cJ mice". \emph{Molecular Neurodegeneration}. doi: 10.1186/1750-1326-9-14
-	\item TA Braun, RF Mullins, {\bf AH Wagner}, J Andorf, R Johnston, B Bakall, AP DeLuca, G Fisherman, R Weleber, A Cideciyan, S Jacobson, V Sheffield, B Tucker, EM Stone (2013) ``Non-exomic and synonymous variants in ABCA4 are an important cause of Stargardt disease".  \emph{Human Molecular Genetics}. doi: 10.1093/hmg/ddt367
-	\item {\bf AH Wagner}, KR Taylor, AP DeLuca, TL Casavant, RF Mullins, EM Stone, TE Scheetz, TA Braun  (2013), ``Prioritization of Retinal Disease Genes: An Integrative Approach." \emph{Human Mutation}. doi: 10.1002/humu.22317
-	\item {\bf AH Wagner}, VN Anand, W Wang, JE Chatterton, D Sun, AR Shepard, N Jacobson, L Pang, AP DeLuca, TL Casavant, TE Scheetz, RF Mullins, TA Braun, AF Clark (2013) ``Exon-level expression profiling of ocular tissues". \emph{Experimental Eye Research}. doi: 10.1016/j.exer.2013.03.004
-	\item AP DeLuca, {\bf AH Wagner}, KR Taylor, B Faga, D Thole, VC Sheffield, EM Stone, TL Casavant, TE Scheetz, TA Braun (December 2011) ``Sequencing and disease variation detection tools and techniques". \emph{9th IEEE/ACS International Conference on Computer Systems and Applications (AICCSA)}. doi: 10.1109/AICCSA.2011.6126607
-\end{bibsection}
+\section{Software Engineering Skills}
 
-%\section{Submitted Journal Publications}
-%\vspace{-.1275in}
-%\begin{bibsection}
-%\end{bibsection}
+\skillgroup{Programming Languages}
+{
+\textit{Ruby} - MRI 1.8.7, 1.9.2\\
+\textit{ASP.NET, C\#, VB.NET}\\
+\textit{PHP}\\
+\textit{Java/Scala}
+}
 
-% Add a little space to nudge next ``Conference Publications'' marginpar
-% down to make room for tall ``Submitted Journal Publications''
-% marginpar. If there are enough submitted journal publications, this
-% space will not be needed (and should be removed).
-%\vspace{0.1in}
+%------------------------------------------------
 
-\section{Papers in Preparation}
-\vspace{-.1275in}
-\begin{bibsection}
+\skillgroup{Web Development}
+{
+\textit{HTML5, CSS3/SASS, JavaScript/CoffeeScript/jQuery}\\
+\textit{Ruby on Rails v3.1}\\
+\textit{Test:Unit, RSpec, Cucumber, Selenium} - automated testing frameworks\\
+\textit{Apache/Nginx Web Servers}\\
+}
 
-    \item {\bf AH Wagner}, M Hector, W Goar, AP DeLuca, EM Stone, TA Braun ``TRIPOD: An Online Educational Resource for the Characterization of Heritable Retinal Dystrophies".
-    \item {\bf AH Wagner}, K Krysiak, Z Skidmore, R Govindan, M Griffith, OL Griffith ``The Genomic Landscape of Relapsed Small Cell Lung Cancer".
-    \item {\bf AH Wagner}, AC Coffman, M Griffith, OL Griffith ``An update to the Drug-Gene Interaction Database".
+%------------------------------------------------
 
-\end{bibsection}
+\skillgroup{Miscellaneous}
+{
+\textit{Microsoft SQL Server 2000/2005} - database architecture and administration\\
+\textit{Transact-SQL} - data definition and manipulation\\
+\textit{SQL Profiler} - performance tuning and debugging\\
+\textit{MySQL Server}\\
+\textit{CVS, DARCS, git} - source version control
+}
 
-\section{Software Familiarity}
+%----------------------------------------------------------------------------------------
+%	INTERESTS SECTION
+%----------------------------------------------------------------------------------------
 
-Programming languages and environments:
+\section{Interests}
 
-\begin{innerlist}
-	\item C, C++, Java, Matlab, MySQL, Perl, Python (PyCharm), R (RStudio), \\
-	 Ruby on Rails (RubyMine), SGE, UNIX
-\end{innerlist}
+\interestsgroup{
+\interest{Badminton, Tennis, Running, Cycling, Sailing}
+\interest{Travelling}
+\interest{Creative Writing}
+\interest{Photography}
+\interest{Car Mechanics}
+}
 
-\halfblankline
+%----------------------------------------------------------------------------------------
+%	REFEREE SECTION
+%----------------------------------------------------------------------------------------
 
-Common software (bioinformatics):
+\section{Referees}
 
-\begin{innerlist}
-	\item Affymetrix Power Tools, Bedtools, Bowtie, BWA, Cufflinks, GATK, IGV, GMS \\
-		RNA-SeQC, Samtools, Tophat, UCSC Genome Browser, VCFTools
-\end{innerlist}
+\parbox{0.5\textwidth}{ % First block
+\begin{tabbing}
+\hspace{2.75cm} \= \hspace{4cm} \= \kill % Spacing within the block
+{\bf Name} \> Bill Lumbergh \\ % Referee name
+{\bf Company} \> Initech Inc. \\ % Referee company
+{\bf Position} \> Vice President \\ % Referee job title 
+{\bf Contact} \> \href{mailto:bill@initech.com}{bill@initech.com} % Referee contact information
+\end{tabbing}}
+\hfill % Horizontal space between the two blocks
+\parbox{0.5\textwidth}{ % Second block
+\begin{tabbing}
+\hspace{2.75cm} \= \hspace{4cm} \= \kill % Spacing within the block
+{\bf Name} \> Michael "Big Mike" Tucker\\ % Referee name
+{\bf Company} \> Burbank Buy More \\ % Referee company
+{\bf Position} \> Store Manager \\ % Referee job title 
+{\bf Contact} \> \href{mailto:mike@buymore.com}{mike@buymore.com} % Referee contact information
+\end{tabbing}}
 
-\halfblankline
+%----------------------------------------------------------------------------------------
 
-Common software (other):
-
-\begin{innerlist}
-	\item Git, \LaTeX
-\end{innerlist}
-
-\section{Merit}
-Oral Presentation Awards
-\begin{innerlist}
-\item \href{https://genome.uiowa.edu/home/node/72}{Annual Bioinformatics Retreat, University of Iowa}\hfill August 16, 2013
-	\begin{innerlist}
-	\item \emph{Best Student Talk}
-	\end{innerlist}
-\item \href{http://webeye.ophth.uiowa.edu/eig/MERS_2012.html}{Midwest Eye Research Symposium}\hfill July 6, 2012
-	\begin{innerlist}
-	\item \emph{Outstanding Oral Presentation}, 2nd Place
-	\end{innerlist}
-\end{innerlist}
-
-\halfblankline
-
-Poster Presentation Awards
-\begin{innerlist}
-\item \href{http://ppc.uiowa.edu/health/ihg/poster}{Interdisciplinary Health Research Poster Session}\hfill April 23, 2013
-	\begin{innerlist}
-	\item \emph{Best Poster Award}, Center on Aging
-	\end{innerlist}
-\end{innerlist}
-
-\halfblankline
-
-Research Awards
-\begin{innerlist}
-\item \emph{Outstanding Student Research Award}\hfill 2012--2013
-\begin{innerlist}
-	\item This annual award recognizes a single student in the College of Engineering for exemplary research in the fields of bioinformatics and computational biology.
-\end{innerlist}
-\end{innerlist}
-
-\begin{innerlist}
-\item \emph{D.C. Spriestersbach Dissertation Prize}\hfill 2015
-\begin{innerlist}
-	\item {\bf Genetics Program Nomination}, \emph{award decision ongoing}
-	\item This biennial award recognizes excellence in doctoral research. Each of the twenty biological/life sciences programs at the University of Iowa nominates one dissertation submitted between July 1, 2013 and June 30, 2015 to compete for the award.
-\end{innerlist}
-\end{innerlist}
-
-\section{Funding}
-
-External Awards 
-\begin{innerlist}
-\item \emph{NSF Travel Grant, ISMB 2013}\hfill July 2013
-\begin{innerlist}
-	\item This grant is provided for exceptional work in the field of Bioinformatics for travel to the ISMB annual conference
-\end{innerlist}
-\end{innerlist}
-
-\halfblankline
-
-University of Iowa Awards
-\begin{innerlist}
-\item \emph{NIH T32 Institutional Training Grant in Genetics}\hfill 2013-2014
-\begin{innerlist}
-	\item This fellowship is awarded to the most promising graduate students in the field of genetics for predoctoral training in this area.  It provides tuition and stipend support.
-\end{innerlist}
-\item \emph{Graduate Student Senate Travel Grant, ARVO 2013}\hfill May 2013
-\item \emph{NIH T32 Institutional Training Grant in Bioinformatics}\hfill 2011--2013
-\begin{innerlist}
-	\item This fellowship is awarded to the most promising graduate students in the field of bioinformatics for predoctoral training in this area. It provides tuition and stipend support and funding for conference travel.
-	\item Consecutive annual awards granted for 2011-2012 and 2012-2013.
-\end{innerlist}
-\end{innerlist}
-
-\section{Presentations}
-External Presentations
-\begin{innerlist}
-\item ISMB Annual Conference, Berlin, Germany \hfill July 2013 \\
-	\emph{Positive and Unlabeled Learning for Prioritization (PULP)}
-\item ARVO Annual Conference, Seattle, WA \hfill May 2013 \\
-	\emph{Positive and Unlabeled Learning for Prioritizing Candidate \\ Variants in Retinal Degenerative Diseases}
-\item BICB Industry Symposium, Minneapolis, MN \hfill May 2013 \\
-	\emph{Positive and Unlabeled Learning for Prioritizing Candidate \\ Variants in Retinal Degenerative Diseases}
-\item ARVO Annual Conference, Ft. Lauderdale, FL \hfill May 2012 \\
-	\emph{RNA Sequencing for Identification of Genetic Factors in Retinal Disease}
-\item Joint Bioinformatics Retreat, Ames, IA \hfill Aug 2011 \\
-	\emph{Using RNA Sequencing To Identify And Isolate Causative \\ Genetic Factors In Retinal Disease}
-\end{innerlist}
-
-\halfblankline
-
-University of Iowa
-\begin{innerlist}
-\item Genetics Retreat 2014 \hfill October 2014 \\
-	\emph{Active Phenotype Acquisition for the Genetic Characterization of Heritable Retinal Diseases}
-\item Engineering Research Open House 2014 \hfill April 2014\\
-	\emph{Positive and Unlabeled Learning for Prioritization (PULP)}
-\item Genetics Retreat 2013 \hfill October 2013 \\
-	\emph{Prioritizing Disease Genes in Exome Studies}
-\item Joint Bioinformatics Retreat \hfill August 2013 \\
-	\emph{Positive and Unlabeled Learning for Prioritization}
-\item Interdisciplinary Health Research Poster Session \hfill April 2013 \\
-	\emph{Positive and Unlabeled Learning for Prioritizing Candidate Variants in Retinal \\ Degenerative Diseases}
-\item Genetics Retreat 2012 \hfill November 2012 \\
-	\emph{Machine Learning Based Prioritization of Retinal Disease Genes}
-\item Joint Bioinformatics Retreat \hfill October 2012 \\
-	\emph{Prioritization of Retinal Disease Genes: An Integrative Approach}
-\item Midwest Eye Research Symposium \hfill July 2012 \\
-	\emph{Machine Learning Based Prioritization of Eye Disease Genes}
-\item Genetics Retreat 2011 \hfill February 2012 \\
-	\emph{Exon-level Expression Profiling of Ocular Tissues}
-\end{innerlist}
-
-
-\section{Teaching Experience}
-
-\textbf{Teaching Assistant} \hfill {Fall 2014}
-\begin{innerlist}
-
-\item[] 051:123 - Bioinformatics Techniques\\
-	Instructor: Thomas L. Casavant\\
-	Department of Biomedical Engineering\\
-	University of Iowa
-\end{innerlist}
-
-\halfblankline
-
-\textbf{Guest Lecturer} \hfill {Spring 2014}
-\begin{innerlist}
-
-\item[] 051:080 - Bioimaging and Bioinformatics\\
-	Instructor: Todd E. Scheetz
-	Department of Biomedical Engineering\\
-	University of Iowa
-\end{innerlist}
-
-\halfblankline
-
-\textbf{Teaching Assistant} \hfill {Spring 2014}
-\begin{innerlist}
-
-\item[] 051:122 - Computational Genomics\\
-	Instructor: Thomas L. Casavant\\
-	Department of Biomedical Engineering\\
-	University of Iowa
-\end{innerlist}
-
-\halfblankline
-
-\begin{samepage}
-\textbf{Teaching Assistant} \hfill {Fall 2013}
-\begin{innerlist}
-
-\item[] 051:123 - Bioinformatics Techniques\\
-        Instructor: Terry A. Braun\\
-        Department of Biomedical Engineering\\
-        University of Iowa
-\end{innerlist}
-\end{samepage}
-
-\halfblankline
-
-\begin{samepage}
-\textbf{Teaching Assistant} \hfill {Fall 2006}
-\begin{innerlist}
-
-\item[] BIOL 313 - Principles of Genetics\\
-	Instructor: Jack Girton\\
-	Department of Biology\\
-	Iowa State University
-\end{innerlist}
-\end{samepage}
-
-\section{Service}
-\begin{samepage}
-\textbf{Executive Committee}, Bioinformatics Training Grant Renewal\hfill {S13-F14}
-\begin{innerlist}
-    \item Assisted in curriculum development for proposed Bioinformatics PhD program
-    \item Researched student career development resources to be utilized by the program
-    \item Collaborated with co-PIs and others in writing the grant proposal to fund the program
-\end{innerlist}
-
-\halfblankline
-\end{samepage}
-
-\begin{samepage}
-\textbf{Planning Committee Chair}, Ann. UI Bioinformatics Retreat \hfill {S13-F14}
-\begin{innerlist}
-    \item Planned logistics of the 2013 and 2014 annual bioinformatics retreats
-    \item Invited selected extramural faculty to participate in the retreats
-\end{innerlist}
-\end{samepage}
-
-\end{document}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%% End CV Document %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%----------------------------------------------------------------------%
-% The following is copyright and licensing information for
-% redistribution of this LaTeX source code; it also includes a liability
-% statement. If this source code is not being redistributed to others,
-% it may be omitted. It has no effect on the function of the above code.
-%----------------------------------------------------------------------%
-% Copyright (c) 2007, 2008, 2009, 2010, 2011 by Theodore P. Pavlic
-% Copyright (c) 2013, 2014, 2015 by Alex H. Wagner
-%
-% Unless otherwise expressly stated, this work is licensed under the
-% Creative Commons Attribution-Noncommercial 3.0 United States License. To
-% view a copy of this license, visit
-% http://creativecommons.org/licenses/by-nc/3.0/us/ or send a letter to
-% Creative Commons, 171 Second Street, Suite 300, San Francisco,
-% California, 94105, USA.
-%
-% THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
-% OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-% MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
-% IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
-% CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
-% TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
-% SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-%----------------------------------------------------------------------%
+\end{doc
