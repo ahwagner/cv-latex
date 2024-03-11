@@ -20,7 +20,13 @@
 
 \usepackage{lastpage} % Required for calculating the number of pages in the document
 
-\usepackage{hyperref} % Colors for links, text and headings
+\usepackage[dvipsnames]{xcolor}
+
+\usepackage[colorlinks]{hyperref} % Colors for links, text and headings
+\hypersetup{
+	colorlinks=true,
+	urlcolor=OliveGreen
+}
 
 \setcounter{secnumdepth}{0} % Suppress section numbering
 
@@ -73,8 +79,29 @@ SmallCapsFeatures = {Letters = SmallCaps}
 }
 
 %----------------------------------------------------------------------------------------
+%	TABBED BLOCK COMMAND
+%----------------------------------------------------------------------------------------
+
+\newcommand{\tabbedblock}[1]{
+\begin{tabbing}
+\hspace{2cm} \= \hspace{4cm} \= \kill
+#1
+\end{tabbing}
+}
+
+%----------------------------------------------------------------------------------------
 %	JOB COMMAND
 %----------------------------------------------------------------------------------------
+
+\newcommand{\compjob}[5]{
+\begin{tabbing}
+\hspace{2cm} \= \kill
+\textbf{#1} \> \href{#4}{#3} \\
+\textbf{#2} \>\+ \textit{#5} \\
+\begin{minipage}{\smallertextwidth}
+\end{minipage}
+\end{tabbing}
+}
 
 \newcommand{\job}[6]{
 \begin{tabbing}
@@ -88,6 +115,16 @@ SmallCapsFeatures = {Letters = SmallCaps}
 \end{tabbing}
 \vspace{2mm}
 }
+
+%----------------------------------------------------------------------------------------
+%	EDUCATION COMMAND
+%----------------------------------------------------------------------------------------
+
+\newcommand{\edu}[5]{
+\tabbedblock{
+\bf{#1} \> #2 - \href{#4}{#3} \\[5pt]
+\>\bf{GPA:} {#5}
+}}
 
 %----------------------------------------------------------------------------------------
 %	SKILL GROUP COMMAND
@@ -118,13 +155,3 @@ SmallCapsFeatures = {Letters = SmallCaps}
 
 \newcommand{\interest}[1]{\sqbullet \> \textbf{#1}\\[3pt]} % Define a custom command for individual interests
 
-%----------------------------------------------------------------------------------------
-%	TABBED BLOCK COMMAND
-%----------------------------------------------------------------------------------------
-
-\newcommand{\tabbedblock}[1]{
-\begin{tabbing}
-\hspace{2cm} \= \hspace{4cm} \= \kill
-#1
-\end{tabbing}
-}
