@@ -21,12 +21,13 @@
 \usepackage{lastpage} % Required for calculating the number of pages in the document
 
 \usepackage[dvipsnames]{xcolor}
-
 \usepackage[colorlinks]{hyperref} % Colors for links, text and headings
 \hypersetup{
 	colorlinks=true,
 	urlcolor=OliveGreen
 }
+
+\newlength\tdima
 
 \setcounter{secnumdepth}{0} % Suppress section numbering
 
@@ -90,6 +91,18 @@ SmallCapsFeatures = {Letters = SmallCaps}
 }
 
 %----------------------------------------------------------------------------------------
+%	PUBLICATIONS COMMAND
+%----------------------------------------------------------------------------------------
+
+\newcommand{\pub}[4]{
+\item #2 (#4) "#1". \textit{#3}.
+}
+
+\newcommand{\otherPub}[5]{
+\item #2 (#4) "#1". \textit{#3}. \textbf{[#5]}
+}
+
+%----------------------------------------------------------------------------------------
 %	JOB COMMAND
 %----------------------------------------------------------------------------------------
 
@@ -113,7 +126,6 @@ SmallCapsFeatures = {Letters = SmallCaps}
 #6
 \end{minipage}
 \end{tabbing}
-\vspace{2mm}
 }
 
 %----------------------------------------------------------------------------------------
@@ -127,31 +139,73 @@ SmallCapsFeatures = {Letters = SmallCaps}
 }}
 
 %----------------------------------------------------------------------------------------
-%	SKILL GROUP COMMAND
+%	FUNDING COMMAND
 %----------------------------------------------------------------------------------------
 
-\newcommand{\skillgroup}[2]{
+\newcommand{\nihFund}[6]{
 \begin{tabbing}
-\hspace{5mm} \= \kill
-\sqbullet \>\+ \textbf{#1} \\
+\hspace{2cm} \= \kill
+\textbf{#2} - \> \textbf{#1} \\
+\textbf{#3} \>\+ \href{https://reporter.nih.gov/project-details/#5}{#4} - \textit{Role: #6}
+\end{tabbing}
+}
+
+%----------------------------------------------------------------------------------------
+%	MERIT COMMAND
+%----------------------------------------------------------------------------------------
+
+\newcommand{\merit}[6]{
+\begin{tabbing}
+\hspace{2cm} \= \kill
+\textbf{#4} \> \href{#2}{#1} \\
+\>\+ \textit{#3} \\
 \begin{minipage}{\smallertextwidth}
 \vspace{2mm}
-#2
+#5
 \end{minipage}
 \end{tabbing}
 }
 
-%----------------------------------------------------------------------------------------
-%	INTERESTS GROUP COMMAND
-%-----------------------------------------------------------------------------------------
-
-\newcommand{\interestsgroup}[1]{
+\newcommand{\travelAward}[4]{
 \begin{tabbing}
-\hspace{5mm} \= \kill
-#1
+\hspace{2cm} \= \kill
+\textbf{#4} \> \textbf{#1} \\
+\>\+ {#2} - \textit{#3}
 \end{tabbing}
-\vspace{-10mm}
 }
 
-\newcommand{\interest}[1]{\sqbullet \> \textbf{#1}\\[3pt]} % Define a custom command for individual interests
+%----------------------------------------------------------------------------------------
+%	PRESENTATIONS COMMAND
+%----------------------------------------------------------------------------------------
 
+
+\newcommand{\invited}[4]{
+\begin{tabbing}
+\hspace{2cm} \= \kill
+\textbf{#4} \> \begin{minipage}{\smallertextwidth}
+\textsuperscript{\textdaggerdbl}\textit{#1}
+\end{minipage} \\
+\>\+ \textbf{#2} - {#3}
+\end{tabbing}
+}
+
+
+\newcommand{\oral}[4]{
+\begin{tabbing}
+\hspace{2cm} \= \kill
+\textbf{#4} \> \begin{minipage}{\smallertextwidth}
+\textsuperscript{\textdagger}\textit{#1} 
+\end{minipage} \\
+\>\+ \textbf{#2} - {#3}
+\end{tabbing}
+}
+
+\newcommand{\poster}[4]{
+\begin{tabbing}
+\hspace{2cm} \= \kill
+\textbf{#4} \> \begin{minipage}{\smallertextwidth}
+\textit{#1} 
+\end{minipage} \\
+\>\+ \textbf{#2} - {#3}
+\end{tabbing}
+}
