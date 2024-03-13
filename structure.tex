@@ -20,6 +20,8 @@
 
 \usepackage{lastpage} % Required for calculating the number of pages in the document
 
+\usepackage[none]{hyphenat} % no hyphenation on word wrap
+
 \usepackage[dvipsnames]{xcolor}
 \usepackage[colorlinks]{hyperref} % Colors for links, text and headings
 \hypersetup{
@@ -209,3 +211,35 @@ SmallCapsFeatures = {Letters = SmallCaps}
 \>\+ \textbf{#2} - {#3}
 \end{tabbing}
 }
+
+%----------------------------------------------------------------------------------------
+%	INSTRUCTIONS COMMAND
+%----------------------------------------------------------------------------------------
+
+
+\newcommand{\instruction}[6]{
+\begin{tabbing}
+\hspace{2cm} \= \kill
+\textbf{#3} \> \textbf{#2}. #1. \\
+\textbf{#4} \>\+ #5 - \textit{#6}
+\end{tabbing}
+}
+
+%----------------------------------------------------------------------------------------
+%	COMMITTEE COMMAND
+%----------------------------------------------------------------------------------------
+
+
+\newcommand{\cmte}[5]{
+\begin{tabbing}
+\hspace{2cm} \= \kill
+\textbf{#3 - } \> \textbf{#2}. #1. \\
+\textbf{#4} \\
+\> \begin{minipage}{\smallertextwidth}
+\textit{#5}
+\end{minipage}
+\vspace{2mm}
+\end{tabbing}
+}
+
+

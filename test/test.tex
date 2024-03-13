@@ -1,15 +1,22 @@
-\documentclass{article}
+\documentclass[10pt]{article} % Default font size
 
 \input{structure.tex} % Include the file specifying document layout
-\usepackage{bibentry}
 
 \begin{document}
-  \nobibliography{wagner}
-  \bibliographystyle{unsrtnat}
-
-  \section*{Publications}
-  \begin{enumerate}
-    \item \bibentry{cannon2024dgidb}
-    \item \bibentry{cannon2023therapy}
-  \end{enumerate}
+\parbox{0.5\textwidth}{ % First block
+\begin{tabbing} % Enables tabbing
+\hspace{3cm} \= \hspace{4cm} \= \kill % Spacing within the block
+{\bf Address} \> 575 Children's Crossroad,\\ % Address line 1
+\> Columbus, OH 43215 \\ % Address line 2
+{\bf Date of Birth} \> 16$^{th}$ June 1985 \\ % Date of birth 
+\end{tabbing}}
+\hfill % Horizontal space between the two blocks
+\parbox{0.5\textwidth}{ % Second block
+\begin{tabbing} % Enables tabbing
+\hspace{3cm} \= \hspace{4cm} \= \kill % Spacing within the block
+{\bf Work Phone} \> +1 (614) 355 1645 \\ % Home phone
+{\bf Email} \> \href{mailto:Alex.Wagner@nationwidechildrens.org}{Alex.Wagner@nationwidechildrens.org} \\ % Email address
+{\bf Social} \> \href{https://genomic.social/@a}{genomic.social/@a}
+ 
+\end{tabbing}}
 \end{document}
