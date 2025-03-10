@@ -4,5 +4,6 @@
 *.out
 *.gz
 *.aux
-Icon*
+Icon?*
 *(busy)
+
